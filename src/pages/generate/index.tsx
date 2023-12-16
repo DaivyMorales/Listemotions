@@ -3,6 +3,15 @@ import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 
+interface ImagesArtist {
+    url: string
+}
+interface Artist {
+    id: string;
+    images: ImagesArtist[];
+    name: string;
+}
+
 export default function Generate() {
 
     const [myArtists, setMyArtists] = useState([])
@@ -32,10 +41,10 @@ export default function Generate() {
             <button onClick={() => { addMyArtists() }}>My artists</button>
             <div className='grid grid-cols-2 gap-3'>
                 {
-                    myArtists && myArtists.map((artist) => (
+                    myArtists && myArtists.map((artist: Artist) => (
                         <div className='flex gap-3 bg-black p-4 rounded-xl text-white' key={artist.id}>
                             {/* {console.log(artist.images[0].url)} */}
-                            <Image  src={artist.images[0].url} width={30} height={100} alt='Artist image' />
+                            <Image src={artist.images[0]?.url || '/default-image.png'} width={30} height={100} alt='Artist image' />
                             <p className='font-bold text-sm'>{artist.name}</p>
                         </div>
                     ))

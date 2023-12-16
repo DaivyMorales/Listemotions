@@ -12,7 +12,7 @@ export default function Generate() {
     const addMyArtists = async () => {
         // console.log(session)
         const headers = {
-            Authorization: `Bearer ${session.accessToken}`
+            Authorization: `Bearer ${session?.accessToken}`
         }
 
         const response = await axios.get('https://api.spotify.com/v1/me/following?type=artist', { headers });

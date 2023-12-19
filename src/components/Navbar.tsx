@@ -16,7 +16,6 @@ export default function Navbar({ children }: NavbarProps) {
                 openArtists && (<Artists />)
             }
             <div className=" sticky top-0 z-10  p-2 flex justify-center">
-                {/* <div className=" rounded-lg flex gap-2 justify-center px-10 py-2 ring-1 ring-gray-800 backdrop-blur-lg"> */}
                 <ul className='shadow-inner shadow-gray-900 rounded-lg flex gap-2 justify-center items-center px-10 py-2 ring-1 ring-gray-800 backdrop-blur-lg'>
                     <li>About</li>
                     <li>Changelog</li>

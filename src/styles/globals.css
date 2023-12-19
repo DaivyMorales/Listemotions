@@ -17,3 +17,7 @@ h1 {
 li {
     @apply text-[14px] text-gray-200
 }
+
+input {
+    outline: none;
+}

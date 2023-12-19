@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    background: radial-gradient(circle, #db3f3f 5%, transparent 11%);
+    background-size: 1em 1em;
+    background-color: #000000;
+    opacity: 1;
+    color: white;
+}
+
+h1 {
+    @apply text-4xl font-black tracking-tight;
+}
+
+li {
+    @apply text-[14px] text-gray-200
+}

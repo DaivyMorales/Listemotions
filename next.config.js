@@ -8,7 +8,7 @@ await import("./src/env.js");
 const config = {
   reactStrictMode: true,
   images: {
-    domains: ['i.scdn.co'],
+    domains: ['i.scdn.co', 'platform-lookaside.fbsbx.com'],
   },
 
   /**

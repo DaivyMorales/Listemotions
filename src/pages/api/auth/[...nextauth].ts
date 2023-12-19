@@ -7,6 +7,9 @@ declare module 'next-auth' {
     accessToken?: string;
     user: {
       id: string
+      name: string,
+      email: string,
+      image: string
     }
   }
 }
@@ -60,7 +63,6 @@ export const authOptions = {
       return await refreshAccessToken(token)
     },
     async session({ session, token }: { session: any, token: any }) {
-      console.log(token)
       session.accessToken = token.accessToken
       session.user.id = token.sub
       return session;
@@ -68,7 +70,6 @@ export const authOptions = {
   },
 
   pages: {
-
     signIn: "/"
   }
 

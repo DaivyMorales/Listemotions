@@ -1,6 +1,5 @@
 import { signIn, signOut, useSession } from 'next-auth/react'
 import Head from 'next/head'
-import axios from 'axios'
 import 'next-auth'
 import { FaSpotify } from "react-icons/fa";
 
@@ -8,33 +7,6 @@ import { FaSpotify } from "react-icons/fa";
 export default function Home() {
 
   const { data: session, status } = useSession();
-
-  const playlistId = "5lga9js0jSBNM9TFv7UF18";
-
-  const createPlaylist = async () => {
-    if (session) {
-      const playlistData = {
-        "name": "REGGETON🫁",
-        "description": "Testing",
-        "public": false
-      }
-
-      const headers = {
-        Authorization: `Bearer ${session.accessToken}`
-      }
-      try {
-        const response = await axios.post(`https://api.spotify.com/v1/users/${session.user.id}/playlists`, playlistData, {
-          headers
-        });
-        console.log(response.data)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-  }
-
-
-
   return (
     <>
       <Head>
@@ -55,12 +27,11 @@ export default function Home() {
             {
               status === "unauthenticated" ? (
                 <div>
-                  <button className='flex justify-center items-center gap-2 bg-[#FF0000] text-[14px] font-medium px-5 py-3 rounded-xl shadow-lg' onClick={() => signIn("spotify", { callbackUrl: "/generate" })}>Sign with Spotify <FaSpotify size={17} /></button>
+                  <button className='flex justify-center items-center gap-2 bg-[#FF0000] text-[14px] font-medium px-5 py-3 rounded-xl shadow-lg' onClick={() => signIn("spotify", { callbackUrl: "/playlists" })}>Sign with Spotify <FaSpotify size={17} /></button>
                 </div>
               ) : (
                 <div>
                   <button onClick={() => signOut()}>Log out</button>
-                  <button onClick={() => createPlaylist()}>Create a playlist</button>
                 </div>
               )
             }

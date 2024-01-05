@@ -1,5 +1,4 @@
 import OpenAI from "openai";
-import { env } from "@/env";
 import { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
 
@@ -7,12 +6,12 @@ const openai = new OpenAI();
 
 export default async function Gpt(req: NextApiRequest, res: NextApiResponse) {
   const {
-    body: { emotion, artists, accessToken },
+    body: { prompt, artists, accessToken },
   } = req;
 
   try {
-    if (!emotion) {
-      res.status(400).json({ message: "You have not provided the emotion!" });
+    if (!prompt) {
+      res.status(400).json({ message: "You have not provided the prompt!" });
       return;
     }
 
@@ -27,12 +26,13 @@ export default async function Gpt(req: NextApiRequest, res: NextApiResponse) {
       messages: [
         {
           role: "system",
-          content: `Generate 10 song for a playlist based on emotion: ${emotion}, with the next artist: ${artists.join(
+          content: `Generate a playlist with 30 song with the next prompt: "${prompt}", with the next artists: ${artists.join(
             ",",
-          )}. Please give the song name and the main artist. Omit any additional information and provide only the recommended playlist. Take care with the artist and perform a deep search. Exclude numbers and characters. For each song, use a new line. If there is any song or name with ñ for example: (Enseñame a olvidar, change it for Ensename a olvidar (ñ -> n)), please omit them. Ommit this in any artist or song: (á, é, í, ó, ú). If there is a song like (My song (any words)) plz ommit the parentheses like (My song), I just need the song name nothing else`,
+          )}. Please give the song name and the main artist. *IMPORTANT* Don't repeat songs, for example there's a song called Eazt, I don't want repeat it twice plz. Omit any additional information and provide only the recommended playlist. Take care with the artist and perform a deep search. Exclude numbers and characters. For each song, use a new line. If there is any song or name with ñ for example: (Enseñame a olvidar, change it for Ensename a olvidar (ñ -> n)), please omit them. Ommit this in any artist or song: (á, é, í, ó, ú). If there is a song like (My song (any words)) plz ommit the parentheses like (My song), I just need the song name nothing else. If you don't found more songs, please put other artists songs but that artist are similar with the artist with I asked, for example you don't found more songs about "Drake" you can to put songs by "The Weeknd" because these artist are listen both in many occations `,
         },
       ],
       model: "gpt-4-1106-preview",
+      temperature: 0,
     });
 
     const result = completion.choices[0]?.message.content;
@@ -71,7 +71,6 @@ export default async function Gpt(req: NextApiRequest, res: NextApiResponse) {
           );
 
           return response.data;
-          
         } catch (error) {
           console.error(
             `Error fetching Spotify data for ${formattedTrack} - ${formattedArtist}`,
@@ -87,8 +86,6 @@ export default async function Gpt(req: NextApiRequest, res: NextApiResponse) {
     );
 
     res.status(200).json(songs);
-
-    // res.status(200).json({ data: response.data });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error });

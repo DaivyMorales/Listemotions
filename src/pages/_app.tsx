@@ -1,10 +1,14 @@
 import { type AppType } from "next/dist/shared/lib/utils";
-import { Inter } from 'next/font/google'
+import { Kanit } from 'next/font/google'
 import { SessionProvider, useSession } from "next-auth/react"
 import { type Session } from "next-auth";
 
 
-const inter = Inter({ subsets: ['latin'] })
+// // const inter = Work_Sans({ subsets: ['latin'] })
+const inter = Kanit({
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  subsets: ["latin"],
+});
 
 import "@/styles/globals.css";
 import Navbar from "@/components/Navbar";

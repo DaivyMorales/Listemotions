@@ -21,10 +21,8 @@ export default function Playlist() {
   return (
     <>
       {responseGpt.length > 0 && (
-        <div className=" z-10 flex flex-col items-center justify-center gap-2 p-4 -mt-20">
-          {/* <div className="absolute -top-[1000px] h-[1500px] w-full  bg-[#90D6f9] blur-[90px]"></div> */}
-
-          <div className="z-10 mt-20 flex flex-col gap-4">
+        <div className="flex flex-col items-center justify-center pb-5 gap-3 ">
+          <div className="z-10 flex flex-col gap-4 ">
             {/* <div className="z-50 flex w-[677px] items-center  justify-start gap-5 ">
               <div
                 onClick={() => {
@@ -54,9 +52,9 @@ export default function Playlist() {
               </div>
             </div> */}
 
-            <div className="relative overflow-x-auto rounded-xl bg-[#F9F3DD] p-5 ">
-              <table className="p w-[638px] w-full rounded-lg text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
-                <thead className="hidden bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+            <div className=" w-[700px] overflow-x-auto bg-white p-5 ">
+              <table className="p w-[638px] w-full rounded-lg text-left  text-sm text-gray-500 rtl:text-right dark:text-gray-400">
+                <thead className="hidden bg-gray-50 text-xs uppercase text-gray-700  dark:bg-gray-700 dark:text-gray-400">
                   <tr>
                     <th className="">#</th>
 
@@ -70,15 +68,15 @@ export default function Playlist() {
                   </tr>
                 </thead>
                 {responseGpt &&
-                  responseGpt.map((data) => (
+                  responseGpt.map((data, index) => (
                     <tbody className="w-full" key={data.tracks.href}>
-                      {data.tracks.items.map((item, index) => (
+                      {data.tracks.items.map((item) => (
                         <tr
                           key={item.id}
-                          className="w-full rounded-lg bg-[#F9F3DD] hover:bg-[#F2E7D1] "
+                          className="w-full rounded-lg  bg-white hover:bg-gray-200 "
                         >
-                          <th className=" p-5 text-xs font-medium text-gray-400">
-                            {index}
+                          <th className=" p-5 text-xs font-medium text-black">
+                          {index + 1 }
                           </th>
                           <td className="">
                             {item.album.images[0] && (
@@ -92,18 +90,20 @@ export default function Playlist() {
                               />
                             )}
                           </td>
-                          <td className="-gap-3 font-regular flex flex-col items-start  justify-center p-3 text-[10px] text-[#11021F]">
-                            <p className=" text-[14px] font-medium text-[#11021F]">
+                          <td className="-gap-3 font-regular flex flex-col items-start  justify-center p-3 text-[10px] text-black">
+                            <p className=" text-[14px] font-medium text-black">
                               {item.name}
                             </p>
-                            <p>{item.artists[0]?.name}</p>
+                            <p className="text-[12px] font-semibold text-gray-600">
+                              {item.artists[0]?.name}
+                            </p>
                           </td>
                           <td className=" p-5">
-                            <p className="font-regular text-[12px] text-[#11021F]">
+                            <p className="font-regular text-[12px] text-black">
                               {item.album.name}
                             </p>
                           </td>
-                          <td className=" font-regular p-5 text-[12px] text-[#11021F]">
+                          <td className=" font-regular p-5 text-[12px] text-black">
                             {formatDuration(item.duration_ms)}
                           </td>
                         </tr>
@@ -113,14 +113,16 @@ export default function Playlist() {
               </table>
             </div>
           </div>
-          <button
+          <motion.button
+            whileTap={{ scale: 0.4 }}
+            whileHover={{ scale: 1.1 }}
             onClick={() => {
               setOpenNamingPlaylist(true);
             }}
             className="button-export-spotify flex items-center justify-center gap-2 shadow-lg"
           >
             Listen in Spotify <FaSpotify size={17} />
-          </button>
+          </motion.button>
         </div>
       )}
     </>

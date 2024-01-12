@@ -5,6 +5,8 @@ import Artists from "./Artists";
 import Playlist from "./Playlist";
 import NamingPlaylist from "./NamingPlaylist";
 import InputPrompt from "./InputPrompt";
+import Link from "next/link";
+import { FaSpotify } from "react-icons/fa";
 
 interface NavbarProps {
   children: React.ReactNode;
@@ -14,34 +16,46 @@ export default function Navbar({ children }: NavbarProps) {
   const { openArtists, openPlaylist, openNamingPlaylist, openInputPrompt } =
     useOpenComponents();
   return (
-    <div className="relative h-full w-full z-10">
+    <div className="relative flex flex-col min-h-screen">
       {openArtists && <Artists />}
       {openInputPrompt && <InputPrompt />}
 
       {openNamingPlaylist && <NamingPlaylist />}
-      {/* <div className=" sticky top-0 z-10  p-2 flex justify-center">
-                <ul className='shadow-inner shadow-gray-900 rounded-lg flex gap-2 justify-center items-center px-10 py-2 ring-1 ring-gray-800 backdrop-blur-lg'>
-                    <li>About</li>
-                    <li>Changelog</li>
 
-                    <li><button className='text-sm font-medium bg-[#FF0000] p-2 rounded-lg'>Join waitlist</button></li>
-                    <li className='text-gray-800'>|</li>
-                    {
-                        session && (
-                            <li>
-                                <Image
-                                    className='rounded-full p-1 bg-slate-900'
-                                    src={session?.user.image}
-                                    width={35}
-                                    height={35}
-                                    alt='User image'
-                                />
-                                </li>
-                                )
-                              }
-                              
-                              </ul>
-                            </div> */}
+      <header className="hidden flex h-20 items-center justify-between bg-white px-8 dark:bg-gray-800">
+        <Link className="flex items-center gap-2 font-semibold" href="#">
+          {/* <MusicIcon className="h-6 w-6" /> */}
+          <span className="">AI-Spotify</span>
+        </Link>
+        <nav className=" gap-4 md:flex">
+          <Link
+            className="text-sm font-medium underline-offset-4 hover:underline"
+            href="#"
+          >
+            Features
+          </Link>
+          <Link
+            className="text-sm font-medium underline-offset-4 hover:underline"
+            href="#"
+          >
+            How it works
+          </Link>
+          <Link
+            className="text-sm font-medium underline-offset-4 hover:underline"
+            href="#"
+          >
+            Testimonials
+          </Link>
+        </nav>
+        {/* <Button className="hidden md:flex">Create Your Playlist Now</Button> */}
+
+        <button
+          className="flex items-center justify-center gap-2 rounded-xl bg-[#FF0000] px-5 py-3 text-[14px] font-medium shadow-lg"
+          // onClick={() => signIn("spotify", { callbackUrl: "/playlists" })}
+        >
+          Sign with Spotify <FaSpotify size={17} />
+        </button>
+      </header>
       {children}
     </div>
   );

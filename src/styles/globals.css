@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  background-color: #1F1F1F;
+  background-color: #1f1f1f;
   color: white;
 }
 
@@ -60,27 +60,37 @@ textarea {
 } */
 
 .button-export-spotify {
-  border-radius: 6px;
-  border: 1px solid #494949;
-  background: #6f135a;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: #22c55e;
   display: flex;
   padding: 12px 17px;
-  color: #fff;
+  color: black;
   font-size: 14px;
   font-weight: 500;
 }
 
 .button-export-spotify:hover {
-  box-shadow: 0px 0px 6.6px 0px #fa01ff;
-  border: 1px solid white;
+  /* box-shadow: 0px 0px 6.6px 0px #01ff41; */
+  border: 1px solid black;
 }
 
-.input-prompt-container{
+.input-prompt-container {
   background-color: rgba(0, 0, 0, 0.8);
   opacity: 1;
-
 }
 
 .navbar-container {
   z-index: 0;
 }
+
+/* styles/globals.css or your component's CSS */
+/* For WebKit (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: white; /* Set the background color to white */
+}
+

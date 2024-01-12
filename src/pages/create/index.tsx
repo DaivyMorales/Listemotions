@@ -224,7 +224,7 @@ export default function Create() {
           </motion.button>
         </form> */}
       </div>
-      {openPlaylist && <Playlist />}
+      {/* {openPlaylist && <Playlist />} */}
     </div>
   );
 }

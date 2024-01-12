@@ -7,6 +7,8 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useGlobalIds } from "@/store/globalIdsStore";
 import { useRouter } from "next/router";
+import { motion } from "framer-motion";
+import { HiOutlineCheck } from "react-icons/hi";
 
 export default function NamingPlaylist() {
   const { data: session } = useSession();
@@ -123,7 +125,8 @@ export default function NamingPlaylist() {
                 name="name"
                 value={formik.values.name}
                 onChange={formik.handleChange}
-                />
+                autoComplete="off"
+              />
             </div>
 
             <textarea
@@ -137,12 +140,14 @@ export default function NamingPlaylist() {
             ></textarea>
           </div>
         </div>
-        <button
+        <motion.button
+          whileTap={{ scale: 0.4 }}
+          whileHover={{ scale: 1.1 }}
           type="submit"
           className="button-export-spotify flex items-center justify-center gap-2 shadow-lg"
         >
-          Listen in Spotify <FaSpotify size={17} />
-        </button>
+          {responsePlaylistSpotify === 201 ? <HiOutlineCheck /> : "Create"}
+        </motion.button>
       </form>
     </div>
   );

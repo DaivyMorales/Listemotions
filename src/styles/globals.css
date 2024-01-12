@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  background-color: #1f1f1f;
+  background-color: black;
   color: white;
 }
 
@@ -15,6 +15,11 @@ h1 {
   font-weight: 900;
   line-height: normal;
   letter-spacing: -3.2px;
+}
+
+h2 {
+  color: #fff;
+  font-size: 30px;
 }
 
 li {
@@ -91,6 +96,6 @@ textarea {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: white; /* Set the background color to white */
+  background-color: transparent; /* Set the background color to white */
 }
 

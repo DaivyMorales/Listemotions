@@ -13,8 +13,16 @@ import {
   HiOutlineCollection,
   HiOutlineCursorClick,
 } from "react-icons/hi";
+import { playlist } from "@/server/playlistExample";
 
 export default function Home() {
+  const formatDuration = (durationMs: number) => {
+    const totalSeconds = Math.floor(durationMs / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  };
+
   const { data: session, status } = useSession();
   return (
     <>
@@ -24,7 +32,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="relative flex min-h-screen  flex-col items-center justify-center ">
-        <div className="absolute -top-[700px] left-[160px] z-10 h-[1000px] w-[1000px] rounded-full bg-[#FF0000] p-4 opacity-20 blur-[90px]"></div>
+        <div className="absolute -top-[700px] left-[20px] z-10 h-[1000px] w-[1000px] rounded-full bg-[#FF0000] p-4 opacity-20 blur-[90px]"></div>
         <main className="z-50 flex h-screen w-[900px] flex-col items-center justify-center  gap-6">
           <h2 className="text-4xl font-bold text-[#FF0000]">Listemotions</h2>
           <div className=" flex flex-col items-center justify-center gap-2">
@@ -65,26 +73,28 @@ export default function Home() {
             </div>
           )}
         </main>
-        <section className=" h-screen  w-full p-10 ">
-          <div className=" flex flex-col items-center justify-center rounded-xl bg-[#050505] p-5 ring-1 ring-gray-900 ">
-            <h2 className="font-semibold">
-              Writing prompts & personalized playlist ideas
-            </h2>
-            <p className="text-[14px] font-medium text-gray-300">
-              Break through writer's block with great ideas and suggestions.
-            </p>
-            <div className="grid w-full grid-cols-3">
-              <div className="flex flex-col items-center justify-center gap-4 pl-5 pr-20">
+        <section className=" jusfify-center  flex h-screen w-full items-center p-10">
+          <div className=" flex flex-col items-center justify-center gap-16 rounded-xl bg-[#030303] p-5 pt-10 ring-1 ring-gray-900 ">
+            <div className="flex flex-col items-center justify-center">
+              <h2 className="font-semibold">
+                Writing prompts & personalized playlist ideas
+              </h2>
+              <p className="text-[14px] font-medium text-gray-300">
+                Break through writer's block with great ideas and suggestions.
+              </p>
+            </div>
+            <div className="flex w-full flex-col gap-9">
+              <div className="grid grid-cols-3  gap-4 px-5">
                 <motion.div
                   initial={{ opacity: 0, y: -50 }}
                   animate={{ opacity: 2, y: 0 }}
                   transition={{ duration: 1 }}
                 >
-                  <div className="flex items-center gap-1 gap-2">
+                  <div className="flex items-center justify-center gap-1 gap-2">
                     <HiOutlineChat size={18} />
                     <h4 className="font-semibold">Never run out of ideas</h4>
                   </div>
-                  <p className="text-[14px] text-gray-400">
+                  <p className="text-center text-[14px] text-gray-400">
                     Enjoy daily prompts and ideas to inspire your writing.
                   </p>
                 </motion.div>
@@ -94,13 +104,13 @@ export default function Home() {
                   animate={{ opacity: 2, y: 0 }}
                   transition={{ duration: 1 }}
                 >
-                  <div className="flex items-center gap-1 gap-2">
+                  <div className="flex items-center justify-center gap-1 gap-2">
                     <HiOutlineCollection size={18} />
                     <h4 className="font-semibold">
-                      Use AI for personalized suggestions
+                      AI for personalized suggestions
                     </h4>
                   </div>
-                  <p className="text-[14px] text-gray-400">
+                  <p className="text-center text-[14px] text-gray-400">
                     Get inspiration from ideas based on your own past tweets.
                   </p>
                 </motion.div>
@@ -110,21 +120,72 @@ export default function Home() {
                   animate={{ opacity: 2, y: 0 }}
                   transition={{ duration: 1 }}
                 >
-                  <div className="flex items-center gap-1 gap-2">
+                  <div className="flex items-center justify-center gap-1 gap-2">
                     <HiOutlineCursorClick size={18} />
                     <h4 className="font-semibold">Flick through topics</h4>
                   </div>
-                  <p className="text-[14px] text-gray-400">
+                  <p className="text-center text-[14px] text-gray-400">
                     Or skim through curated collections of trending tweets for
                     each topic.
                   </p>
                 </motion.div>
               </div>
-              <div className="relative col-span-2 flex h-[510px] items-center justify-center">
+              <div className="relative flex h-[200px] items-center justify-center rounded-lg">
                 <img src="/promptImage.png" className="z-50 " alt="example" />
-                <div className="absolute  z-10 h-[155px] w-[242px] rounded-full bg-[#C30000]  blur-[200px]"></div>
+                <div className="absolute z-10 h-[155px] w-[242px] rounded-full bg-[#C30000]  blur-[200px]"></div>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section>
+          <div className="relative overflow-x-auto shadow-md rounded-xl py-3 px-3 bg-[#030303] border-[1px] border-gray-900">
+            <table className="w-full text-left text-sm text-gray-400 ">
+              <thead className="hidden bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  <th scope="col" className="px-6 py-3">
+                    Number
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Image
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Name
+                  </th>
+                  {/* <th scope="col" className="px-6 py-3">
+                    album
+                  </th> */}
+                  <th scope="col" className="px-6 py-3">
+                    duration
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {playlist.map((data, index) => (
+                  <tr className=" hover:bg-gray-900">
+                    {data.tracks.items.map((item) => (
+                      <>
+                        <td className="pr-2 pl-5 py-2 text-[12px]">{index + 1}</td>
+                        <td className="px-2 py-2">
+                          {item.album.images[0] && (
+                            <img
+                              src={item.album.images[0].url}
+                              alt=""
+                              className="h-[40px] w-[40px] rounded-md"
+                            />
+                          )}
+                        </td>
+                        <th className="px-2 py-2">
+                         <h4 className="text-white font-semibold"> {item.name}</h4> <p className="text-[12px] font-medium">{item.artists[0]?.name}</p>
+                        </th>
+                        {/* <td className="px-2 py-2 text-[12px]">{item.album.name}</td> */}
+                        {/* <td className="pl-2 pr-5 py-2 text-[12px]">{formatDuration(item.duration_ms)}</td> */}
+                      </>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </section>
       </div>

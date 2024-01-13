@@ -16,7 +16,7 @@ export default function Navbar({ children }: NavbarProps) {
   const { openArtists, openPlaylist, openNamingPlaylist, openInputPrompt } =
     useOpenComponents();
   return (
-    <div className="relative flex flex-col min-h-screen ">
+    <div className="relative flex flex-col min-h-screen px-36">
       {openArtists && <Artists />}
       {openInputPrompt && <InputPrompt />}
 

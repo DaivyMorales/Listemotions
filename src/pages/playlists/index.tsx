@@ -19,15 +19,16 @@ interface Artist {
 
 export default function Generate() {
 
-   
-
-
+    
+    
+    
     const router = useRouter();
-
+    
     const [myArtists, setMyArtists] = useState([])
-
+    
     const { data: session, status } = useSession();
     // console.log(session?.accessToken)
+    console.log(session?.accessToken);
 
 
     return (

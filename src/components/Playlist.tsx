@@ -5,6 +5,7 @@ import { IoMdMusicalNotes } from "react-icons/io";
 import { useOpenComponents } from "@/store/openComponentsStore";
 import { FaSpotify } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
 
 export default function Playlist() {
   const { responseGpt, setResponseGpt } = useGlobalIds();
@@ -18,10 +19,13 @@ export default function Playlist() {
 
   const { setOpenNamingPlaylist } = useOpenComponents();
 
+  const { data: session } = useSession();
+  console.log(session?.accessToken);
+
   return (
     <>
       {responseGpt.length > 0 && (
-        <div className="flex flex-col items-center justify-center pb-5 gap-3 ">
+        <div className="flex flex-col items-center justify-center gap-3 pb-5 ">
           <div className="z-10 flex flex-col gap-4 ">
             {/* <div className="z-50 flex w-[677px] items-center  justify-start gap-5 ">
               <div
@@ -76,7 +80,7 @@ export default function Playlist() {
                           className="w-full rounded-lg  bg-white hover:bg-gray-200 "
                         >
                           <th className=" p-5 text-xs font-medium text-black">
-                          {index + 1 }
+                            {index + 1}
                           </th>
                           <td className="">
                             {item.album.images[0] && (
